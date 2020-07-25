@@ -1,0 +1,17 @@
+{
+  "name": "fakeid",
+  "version": "1.0.0",
+  "description": "Commit identity theft with no victim!",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tascord/fakeId.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tascord/fakeId/issues"
+  },
+  "homepage": "https://github.com/tascord/fakeId#readme"
+}
