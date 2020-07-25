@@ -1,3 +1,5 @@
+const chalk = require('chalk');
+
 const names = require('./data/names.json');
 const emails = require('./data/email.json');
 
@@ -24,11 +26,13 @@ class Identity {
 
     passport() {
 
-        console.log(`Name: ${this.name.join(' ')}`);
-        console.log(`Gender: ${this.gender}`);
-        console.log(`Email: ${this.email}`);
-        console.log(`Postcode: ${this.postcode}`);
-        console.log(`Phone: ${this.phone}`);
+        console.log('\n' + chalk.cyan.bold('—'.repeat(process.stdout.columns)) + '\n');
+        console.log(chalk.blue.bold('Name: ') + chalk.cyan(this.name.join(' ')));
+        console.log(chalk.blue.bold('Gender: ') + chalk.cyan(this.gender));
+        console.log(chalk.blue.bold('Email: ') + chalk.cyan(this.email));
+        console.log(chalk.blue.bold('Phone no#: ') + chalk.cyan(this.phone));
+        console.log(chalk.blue.bold('Postcode: ') + chalk.cyan(this.postcode));
+        console.log('\n' + chalk.cyan.bold('—'.repeat(process.stdout.columns)) + '\n');
 
     }
 

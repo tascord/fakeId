@@ -1,4 +1,4 @@
 const FakeID = require('./');
 
-// console.log(FakeID.email(FakeID.name(true)));
+//Send a list of the new users data
 new FakeID.Identity().passport();

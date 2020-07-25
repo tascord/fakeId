@@ -1,6 +1,6 @@
 {
   "name": "fakeid",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Commit identity theft with no victim!",
   "main": "index.js",
   "repository": {
@@ -16,5 +16,8 @@
   "engines": {
     "node": ">=7.0.0"
   },
-  "homepage": "https://github.com/tascord/fakeId#readme"
+  "homepage": "https://github.com/tascord/fakeId#readme",
+  "dependencies": {
+    "chalk": "^4.1.0"
+  }
 }
