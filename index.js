@@ -17,14 +17,14 @@ class Identity {
         this.gender = random(100) < 50 ? 'Male' : 'Female';
         this.name = name(this.gender == 'Male');
         this.postcode = postcode();
-        this.email = email(names);
+        this.email = email(this.name);
         this.phone = phone(1);
 
     }
 
     passport() {
 
-        console.log(`Name: ${this.name}`);
+        console.log(`Name: ${this.name.join(' ')}`);
         console.log(`Gender: ${this.gender}`);
         console.log(`Email: ${this.email}`);
         console.log(`Postcode: ${this.postcode}`);

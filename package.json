@@ -8,10 +8,13 @@
     "url": "git+https://github.com/tascord/fakeId.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Oscar Hill <admin@tascord.ai> (https://tascord.ai)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/tascord/fakeId/issues"
+  },
+  "engines": {
+    "node": ">=7.0.0"
   },
   "homepage": "https://github.com/tascord/fakeId#readme"
 }
