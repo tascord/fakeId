@@ -3,6 +3,8 @@ const chalk = require('chalk');
 const names = require('./data/names.json');
 const emails = require('./data/email.json');
 
+const alpha = "abcdefhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~!*_+";
+
 const random = range => Math.floor(Math.random() * range);
 const randomBool = (bias = 1) => random(10) % random(100) < bias;
 
@@ -13,6 +15,8 @@ class Identity {
     email = null;
     postcode = null;
     phone = null;
+    username = null;
+    password = null;
 
     constructor() {
 
@@ -21,6 +25,8 @@ class Identity {
         this.postcode = postcode();
         this.email = email(this.name);
         this.phone = phone("+61");
+        this.username = username(this.name);
+        this.password = password();
 
     }
 
@@ -32,6 +38,9 @@ class Identity {
         console.log(chalk.blue.bold('Email: ') + chalk.cyan(this.email));
         console.log(chalk.blue.bold('Phone no#: ') + chalk.cyan(this.phone));
         console.log(chalk.blue.bold('Postcode: ') + chalk.cyan(this.postcode));
+        console.log();
+        console.log(chalk.blue.bold('Username: ') + chalk.cyan(this.username));
+        console.log(chalk.blue.bold('Password: ') + chalk.cyan(this.password));
         console.log('\n' + chalk.cyan.bold('—'.repeat(process.stdout.columns)) + '\n');
 
     }
@@ -66,9 +75,9 @@ function postcode(length = 4) {
     return _;
 }
 
-function email(name) {
+function email(name = null) {
     
-    if(typeof name != 'object') throw new Error("Please provide an array of names.");
+    if(!name || typeof name != 'object') throw new Error("Please provide an array of names.");
 
     var _ = [];
 
@@ -104,8 +113,50 @@ function phone(areaCode) {
 
 }
 
+function username(name = null) {
+    
+    if(!name || typeof name != 'object') throw new Error("Please provide an array of names.");
+    if(name.length < 1) throw new Error("Please provide an array of names.");
+
+    var _ = [];
+
+    if(randomBool(10)) _.push(random(100));
+    else if(randomBool(10)) _.push('Xx');
+    if(randomBool(10)) _.push('X');
+
+    _.push(name[0]);
+
+    if(randomBool(10)) _.push("_");
+    else if(randomBool) _.push(".");
+
+    var t = randomBool();
+    while(t) {
+        if(randomBool()) _.push("_");
+        else if(randomBool) _.push(".");
+        _.push(name[random(name.length)]);
+        t = randomBool();
+    }
+
+    if(randomBool(10)) _.push(random(100));
+    else if(randomBool(10)) _.push('Xx');
+    if(randomBool(10)) _.push('X');
+
+    return _.join('');
+
+}
+
+function password(length = 18, alphabet = alpha) {
+
+    var _ = "";
+    while(_.length < length) _ += alphabet[random(alphabet.length)];
+    return _;
+
+}
+
 exports.Identity = Identity;
 exports.name     = name;
 exports.postcode = postcode;
 exports.email    = email;
 exports.phone    = phone;
+exports.username = username;
+exports.password = password;
