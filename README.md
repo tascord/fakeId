@@ -13,7 +13,7 @@ var FakeID = require('fakeid');
 
 /* Create A Person */
 var person = new FakeID.Identity();
-console.log(`Hello and welcome to the world, ${person.name.join(' ')}; // Hello and welcome to the world, [...] [...]
+console.log(`Hello and welcome to the world, ${person.name.join(' ')}`); // Hello and welcome to the world, [...] [...]
 
 /* Get Values */
 console.log(`Want a friend to call? Call ${person.name[0]} at ${person.phone}`); // Want a friend to call? Call [...] at [...]
