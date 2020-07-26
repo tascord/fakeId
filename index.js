@@ -20,7 +20,7 @@ class Identity {
         this.name = name(this.gender == 'Male');
         this.postcode = postcode();
         this.email = email(this.name);
-        this.phone = phone(1);
+        this.phone = phone("+61");
 
     }
 
@@ -98,8 +98,8 @@ function email(name) {
 
 function phone(areaCode) {
 
-    var _ = areaCode;
-    while(_.length < 9) phone += random(10);
+    var _ = areaCode.toString();
+    while(_.length - areaCode.toString().length < 9) _ += random(10);
     return _;
 
 }
