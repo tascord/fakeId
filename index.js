@@ -2,21 +2,15 @@ const chalk = require('chalk');
 
 const names = require('./data/names.json');
 const emails = require('./data/email.json');
+const months = require('./data/months.json')
 
 const alpha = "abcdefhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~!*_+";
 
 const random = range => Math.floor(Math.random() * range);
 const randomBool = (bias = 1) => random(10) % random(100) < bias;
 
-class Identity {
 
-    name = null;
-    gender = null;
-    email = null;
-    postcode = null;
-    phone = null;
-    username = null;
-    password = null;
+class Identity {
 
     constructor() {
 
@@ -27,6 +21,7 @@ class Identity {
         this.phone = phone("+61");
         this.username = username(this.name);
         this.password = password();
+        this.birthDate = birthDate();
 
     }
 
@@ -35,6 +30,7 @@ class Identity {
         console.log('\n' + chalk.cyan.bold('—'.repeat(process.stdout.columns)) + '\n');
         console.log(chalk.blue.bold('Name: ') + chalk.cyan(this.name.join(' ')));
         console.log(chalk.blue.bold('Gender: ') + chalk.cyan(this.gender));
+        console.log(chalk.blue.bold('DOB: ') + chalk.cyan(`${this.birthDate.date}/${this.birthDate.month}/${this.birthDate.year} (${new Date().getFullYear() - this.birthDate.year} years old)`));
         console.log(chalk.blue.bold('Email: ') + chalk.cyan(this.email));
         console.log(chalk.blue.bold('Phone no#: ') + chalk.cyan(this.phone));
         console.log(chalk.blue.bold('Postcode: ') + chalk.cyan(this.postcode));
@@ -153,10 +149,21 @@ function password(length = 18, alphabet = alpha) {
 
 }
 
-exports.Identity = Identity;
-exports.name     = name;
-exports.postcode = postcode;
-exports.email    = email;
-exports.phone    = phone;
-exports.username = username;
-exports.password = password;
+function birthDate() {
+
+    let m = random(Object.keys(months).length) + 1;
+    let d = random(months[Object.keys(months)[m - 1]]);
+    let y = new Date().getFullYear() - random(30) - 10;
+
+    return {date: d, month: m, year: y};
+
+}
+
+exports.Identity   = Identity;
+exports.name       = name;
+exports.postcode   = postcode;
+exports.email      = email;
+exports.phone      = phone;
+exports.username   = username;
+exports.password   = password;
+exports.birthDate  = birthDate

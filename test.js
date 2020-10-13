@@ -1,6 +1,7 @@
 const FakeID = require('./');
 
-//Send a list of the new users data
-var person = new FakeID.Identity();
+// Instantiate a new Fake ID
+let person = new FakeID.Identity();
 
-console.log(FakeID.username(person.name));
+// Console.log() All their information
+person.passport();
