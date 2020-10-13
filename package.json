@@ -1,6 +1,6 @@
 {
   "name": "fakeid",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Commit identity theft with no victim!",
   "main": "index.js",
   "repository": {
