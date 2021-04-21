@@ -1,21 +1,17 @@
-const chalk = require('chalk');
-
-const names = require('./data/names.json');
-const emails = require('./data/email.json');
-const months = require('./data/months.json')
-
-const alpha = "abcdefhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~!*_+";
-
-const random = range => Math.floor(Math.random() * range);
-const randomBool = (bias = 1) => random(10) % random(100) < bias;
-
+const chalk = require('chalk'),
+      names = require('./data/names.json'),
+      emails = require('./data/email.json'),
+      months = require('./data/months.json'),
+      alpha = "abcdefhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~!*_+",
+      random = range => Math.floor(Math.random() * range),
+      randomBool = (bias = 1) => random(10) % random(100) < bias;
 
 class Identity {
 
     constructor() {
 
         this.gender = random(100) < 50 ? 'Male' : 'Female';
-        this.name = name(this.gender == 'Male');
+        this.name = name(this.gender === 'Male');
         this.postcode = postcode();
         this.email = email(this.name);
         this.phone = phone("+61");
@@ -43,13 +39,16 @@ class Identity {
 
 }
 
-function name(male = null, count = 2) {
+function name(male, count = 2) {
     
-    if(male == null) throw new Error("Please provide whether the name is to be male gendered.");
-    if(isNaN(count)) throw new Error("Please provide valid number of names.");
-    if(count.length < 0) throw new Error("Please provide a number of names greater than zero.");
+    if (!male)
+        throw new Error("Please provide whether the name is to be male gendered.");
+    else if (isNaN(count))
+        throw new Error("Please provide valid number of names.");
+    else if (count.length < 0)
+        throw new Error("Please provide a number of names greater than zero.");
 
-    var _ = [];
+    let _ = [];
     nI = names.initial[male ? 'male' : 'female'];
     nS = names.middle[male ? 'male' : 'female'];
 
@@ -62,7 +61,7 @@ function name(male = null, count = 2) {
 }
 
 function postcode(length = 4) {
-    var _ = "";    
+    let _ = "";    
     
     while(_.length < length) {
         _ += Math.floor(Math.random() * 10)
@@ -73,16 +72,20 @@ function postcode(length = 4) {
 
 function email(name = null) {
     
-    if(!name || typeof name != 'object') throw new Error("Please provide an array of names.");
+    if(!name || typeof name != 'object')
+        throw new Error("Please provide an array of names.");
 
-    var _ = [];
+    let _ = [];
 
-    if(randomBool(10)) _.push(random(100));
+    if (randomBool(10))
+        _.push(random(100));
     
-    if(randomBool(10)) _.push("_");
-    else if(randomBool) _.push(".");
+    if (randomBool(10))
+        _.push("_");
+    else if(randomBool)
+        _.push(".");
 
-    var t = randomBool();
+    let t = randomBool();
     while(t) {
         if(randomBool()) _.push("_");
         else if(randomBool) _.push(".");
@@ -90,8 +93,10 @@ function email(name = null) {
         t = randomBool();
     }
 
-    if(randomBool(10)) _.push(random(100));
-    if(randomBool(10)) _.push(random(100));
+    if (randomBool(10)) {
+        _.push(random(100));
+        _.push(random(100));
+    }
 
     _.push(name[name.length - 1]);
     _.push('@' + emails[random(emails.length)]);
@@ -103,29 +108,37 @@ function email(name = null) {
 
 function phone(areaCode) {
 
-    var _ = areaCode.toString();
-    while(_.length - areaCode.toString().length < 9) _ += random(10);
+    let _ = areaCode.toString();
+    while (_.length - areaCode.toString().length < 9)
+        _ += random(10);
     return _;
 
 }
 
 function username(name = null) {
     
-    if(!name || typeof name != 'object') throw new Error("Please provide an array of names.");
-    if(name.length < 1) throw new Error("Please provide an array of names.");
+    if (!name || typeof name !== 'object')
+        throw new Error("Please provide an array of names.");
+    if (name.length < 1)
+        throw new Error("Please provide an array of names.");
 
-    var _ = [];
+    let _ = [];
 
-    if(randomBool(10)) _.push(random(100));
-    else if(randomBool(10)) _.push('Xx');
-    if(randomBool(10)) _.push('X');
+    if (randomBool(10))
+        _.push(random(100));
+    else if (randomBool(10))
+        _.push('Xx');
+    if (randomBool(10))
+        _.push('X');
 
     _.push(name[0]);
 
-    if(randomBool(10)) _.push("_");
-    else if(randomBool) _.push(".");
+    if (randomBool(10))
+        _.push("_");
+    else if (randomBool)
+        _.push(".");
 
-    var t = randomBool();
+    let t = randomBool();
     while(t) {
         if(randomBool()) _.push("_");
         else if(randomBool) _.push(".");
@@ -133,37 +146,41 @@ function username(name = null) {
         t = randomBool();
     }
 
-    if(randomBool(10)) _.push(random(100));
-    else if(randomBool(10)) _.push('Xx');
-    if(randomBool(10)) _.push('X');
+    if (randomBool(10))
+        _.push(random(100));
+    else if (randomBool(10))
+        _.push('Xx');
+    if (randomBool(10))
+        _.push('X');
 
     return _.join('');
 
 }
 
-function password(length = 18, alphabet = alpha) {
+function password (length = 18, alphabet = alpha) {
 
-    var _ = "";
-    while(_.length < length) _ += alphabet[random(alphabet.length)];
+    let _ = "";
+    while (_.length < length)
+        _ += alphabet[random(alphabet.length)];
     return _;
 
 }
 
 function birthDate() {
 
-    let m = random(Object.keys(months).length) + 1;
-    let d = random(months[Object.keys(months)[m - 1]]);
-    let y = new Date().getFullYear() - random(30) - 10;
+    const m = random(Object.keys(months).length) + 1;
+    const d = random(months[Object.keys(months)[m - 1]]);
+    const y = new Date().getFullYear() - random(30) - 10;
 
     return {date: d, month: m, year: y};
 
 }
 
-exports.Identity   = Identity;
-exports.name       = name;
-exports.postcode   = postcode;
-exports.email      = email;
-exports.phone      = phone;
-exports.username   = username;
-exports.password   = password;
-exports.birthDate  = birthDate
+exports.Identity = Identity;
+exports.name = name;
+exports.postcode = postcode;
+exports.email = email;
+exports.phone = phone;
+exports.username = username;
+exports.password = password;
+exports.birthDate = birthDate;
